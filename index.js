@@ -113,3 +113,48 @@ const updateEmployeePrompt = [
         ]
     },
 ]
+
+let askPrompts = true;
+async function init() {
+    //Use the company database
+    db.query('USE company_db', (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+    while (askPrompts) {
+        //Choose a todo
+        const data = await inquirer.prompt(mainPrompt);
+        console.log(data)
+        switch (data.mainTodo) {
+            case 'View all departments':
+                //show departments
+                break;
+            case 'Add a department':
+                //add departments
+                break;
+            case 'View all roles':
+                //show roles
+                break;
+            case 'Add a role':
+                //add role
+                break;
+            case 'View all employees':
+                //show employees
+                break;
+            case 'Add an employee':
+                //add employee
+                break;
+            case 'Update an employee role':
+                //update employee
+                break;
+            case 'Quit':
+                askPrompts = false;
+                break;
+        }
+
+    }
+    process.exit()
+}
+
+init();
