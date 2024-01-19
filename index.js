@@ -114,6 +114,19 @@ const updateEmployeePrompt = [
     },
 ]
 
+//Query to show all data in table
+const displayData = (table) => {
+    db.query(`SELECT * FROM ${table}`, (err, results) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.table(results);
+            console.log('(Move up or down to continue)')
+        }
+    });
+}
+
+
 let askPrompts = true;
 async function init() {
     //Use the company database
