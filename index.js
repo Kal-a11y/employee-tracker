@@ -138,7 +138,6 @@ async function init() {
     while (askPrompts) {
         //Choose a todo
         const data = await inquirer.prompt(mainPrompt);
-        console.log(data)
         switch (data.mainTodo) {
             case 'View all departments':
                 //show departments
