@@ -142,18 +142,21 @@ async function init() {
         switch (data.mainTodo) {
             case 'View all departments':
                 //show departments
+                displayData('department');
                 break;
             case 'Add a department':
                 //add departments
                 break;
             case 'View all roles':
                 //show roles
+                displayData('role');
                 break;
             case 'Add a role':
                 //add role
                 break;
             case 'View all employees':
                 //show employees
+                displayData('employee');
                 break;
             case 'Add an employee':
                 //add employee
