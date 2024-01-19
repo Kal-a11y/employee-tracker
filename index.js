@@ -114,6 +114,19 @@ const updateEmployeePrompt = [
     },
 ]
 
+//Query to show all data in table
+const displayData = (table) => {
+    db.query(`SELECT * FROM ${table}`, (err, results) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.table(results);
+            console.log('(Move up or down to continue)')
+        }
+    });
+}
+
+
 let askPrompts = true;
 async function init() {
     //Use the company database
@@ -125,22 +138,24 @@ async function init() {
     while (askPrompts) {
         //Choose a todo
         const data = await inquirer.prompt(mainPrompt);
-        console.log(data)
         switch (data.mainTodo) {
             case 'View all departments':
                 //show departments
+                displayData('department');
                 break;
             case 'Add a department':
                 //add departments
                 break;
             case 'View all roles':
                 //show roles
+                displayData('role');
                 break;
             case 'Add a role':
                 //add role
                 break;
             case 'View all employees':
                 //show employees
+                displayData('employee');
                 break;
             case 'Add an employee':
                 //add employee
