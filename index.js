@@ -14,6 +14,38 @@ const db = mysql.createConnection(
     console.log(`Connected to the company_db database.`)
 );
 
+
+//Query to show all data in table
+const displayData = (table) => {
+    db.query(`SELECT * FROM ${table}`, (err, results) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.table(results);
+            console.log('(Move up or down to continue)')
+        }
+    });
+}
+//Add data to table
+const addData = (table, data) => {
+    let values = '';
+
+    switch (table) {
+        case 'department':
+            values = `(name) Values ('${data}')`;
+            break;
+    }
+    const query = `INSERT INTO ${table} ${values};`
+    db.query(query, (err, results) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(`New ${table} has been added.`);
+
+        }
+    });
+}
+
 const mainPrompt = [
     {
         type: 'list',
@@ -114,17 +146,7 @@ const updateEmployeePrompt = [
     },
 ]
 
-//Query to show all data in table
-const displayData = (table) => {
-    db.query(`SELECT * FROM ${table}`, (err, results) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.table(results);
-            console.log('(Move up or down to continue)')
-        }
-    });
-}
+
 
 
 let askPrompts = true;
@@ -145,6 +167,8 @@ async function init() {
                 break;
             case 'Add a department':
                 //add departments
+                const { departmentName } = await inquirer.prompt(addDepartmentPrompt);
+                addData('department', departmentName)
                 break;
             case 'View all roles':
                 //show roles
@@ -152,6 +176,8 @@ async function init() {
                 break;
             case 'Add a role':
                 //add role
+                const { roleName } = await inquirer.prompt(addRolePrompt)
+                console.log(roleName)
                 break;
             case 'View all employees':
                 //show employees
